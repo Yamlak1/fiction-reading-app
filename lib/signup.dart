@@ -85,7 +85,6 @@ class _SignupPageState extends State<SignupPage> {
             const SizedBox(height: 16),
             TextButton(
               onPressed: () {
-                // Navigate to the login page
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const LoginPage()),

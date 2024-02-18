@@ -20,7 +20,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Color.fromARGB(255, 14, 134, 158),
         title: Text(widget.doc.doc_title!),
       ),
       body: Column(
