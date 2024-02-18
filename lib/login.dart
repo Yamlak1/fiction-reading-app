@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:proj_app/signup.dart';
@@ -50,9 +48,7 @@ class _LoginPageState extends State<LoginPage> {
                     MaterialPageRoute(builder: (context) => const Home()),
                   );
                 } catch (e) {
-                  // ignore: avoid_print
                   print('Error signing in: $e');
-                  // Handle authentication error
                 }
               },
               child: const Text('Sign In'),

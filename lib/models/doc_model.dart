@@ -56,7 +56,7 @@ class Document {
       "https://ia601209.us.archive.org/11/items/wonderfulwizardo00baumiala/wonderfulwizardo00baumiala.pdf",
       "1-1-1900",
       312,
-      "lib/assets/lightningthief.jpg",
+      "lib/assets/WWOO.jpg",
       genre: "Fantasy",
     ),
 

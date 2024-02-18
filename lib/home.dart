@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'models/doc_model.dart';
@@ -67,8 +65,8 @@ class BookList extends StatelessWidget {
                 );
               },
               child: Card(
-                elevation: 5, // Set the elevation value
-                color: Colors.orangeAccent, // Set the new color
+                elevation: 5,
+                color: Colors.orangeAccent,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -235,69 +233,109 @@ class _HomeScreenState extends State<Home> {
               },
             ),
             title: const Text('Book Reader'),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  setState(() {
+                    isSearchVisible = !isSearchVisible;
+                    searchName = '';
+                  });
+                },
+              ),
+            ],
           ),
           drawer: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: <Widget>[
-                Container(
-                  height: 120,
-                  decoration: BoxDecoration(
-                    color: isDarkMode
-                        ? Color.fromARGB(255, 14, 134, 158)
-                        : Color.fromARGB(255, 244, 250, 251),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'User name',
-                      style: TextStyle(
+            backgroundColor: isDarkMode
+                ? Color.fromARGB(255, 7, 156, 185)
+                : Color.fromARGB(255, 147, 188, 196),
+            child: StreamBuilder<User?>(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (context, AsyncSnapshot<User?> snapshot) {
+                String userEmail = snapshot.data?.email ?? 'Unknown User';
+
+                return ListView(
+                  padding: EdgeInsets.zero,
+                  children: <Widget>[
+                    Container(
+                      height: 120,
+                      decoration: BoxDecoration(
                         color: isDarkMode
-                            ? Color.fromARGB(255, 244, 250, 251)
-                            : Colors.black,
-                        fontSize: 24,
+                            ? Color.fromARGB(255, 14, 134, 158)
+                            : Color.fromARGB(255, 147, 188, 196),
+                      ),
+                      child: Center(
+                        child: Text(
+                          userEmail,
+                          style: TextStyle(
+                            color: isDarkMode
+                                ? Color.fromARGB(255, 244, 250, 251)
+                                : Colors.black,
+                            fontSize: 24,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                ListTile(
-                  title: const Text('Switch Theme'),
-                  onTap: () {
-                    setState(() {
-                      isDarkMode = !isDarkMode;
-                    });
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  title: const Text('Search'),
-                  onTap: () {
-                    setState(() {
-                      isSearchVisible = !isSearchVisible;
-                      // Clear the search text when showing/hiding the search bar
-                      searchName = '';
-                    });
-                    Navigator.pop(context);
-                  },
-                ),
-                ListTile(
-                  title: const Text('Logout'),
-                  onTap: () async {
-                    try {
-                      await FirebaseAuth.instance.signOut();
-                      // Navigate to the login page and prevent going back to the home page
-                      // ignore: use_build_context_synchronously
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginPage()),
-                      );
-                    } catch (e) {
-                      print('Error logging out: $e');
-                      // Handle logout error
-                    }
-                  },
-                ),
-              ],
+                    ListTile(
+                      title: Text(
+                        'Switch Theme',
+                        style: TextStyle(
+                          color: isDarkMode
+                              ? Color.fromARGB(255, 244, 250, 251)
+                              : Colors.black,
+                        ),
+                      ),
+                      onTap: () {
+                        setState(() {
+                          isDarkMode = !isDarkMode;
+                        });
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                      title: Text(
+                        'Search',
+                        style: TextStyle(
+                          color: isDarkMode
+                              ? Color.fromARGB(255, 244, 250, 251)
+                              : Colors.black,
+                        ),
+                      ),
+                      onTap: () {
+                        setState(() {
+                          isSearchVisible = !isSearchVisible;
+                          searchName = '';
+                        });
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                      title: Text(
+                        'Logout',
+                        style: TextStyle(
+                          color: isDarkMode
+                              ? Color.fromARGB(255, 244, 250, 251)
+                              : Colors.black,
+                        ),
+                      ),
+                      onTap: () async {
+                        try {
+                          await FirebaseAuth.instance.signOut();
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LoginPage(),
+                            ),
+                          );
+                        } catch (e) {
+                          print('Error logging out: $e');
+                        }
+                      },
+                    ),
+                  ],
+                );
+              },
             ),
           ),
           body: Padding(

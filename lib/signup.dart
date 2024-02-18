@@ -1,5 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api, use_build_context_synchronously, avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:proj_app/login.dart';
@@ -47,16 +45,13 @@ class _SignupPageState extends State<SignupPage> {
                     password: _passwordController.text,
                   );
 
-                  // Navigate to the login page after successful signup
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => const LoginPage()),
                   );
                 } catch (e) {
-                  // Handle signup error
                   print('Error signing up: $e');
 
-                  // Show an alert dialog for invalid password
                   if (e.toString().contains('weak-password') ||
                       e.toString().contains('invalid-password')) {
                     showDialog(
